@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{%load crispy_forms_filters%}
+{% block abc %}
+Home | Todo
+{% endblock %}
+
+{% block content %}
+<section id="todo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center display-4">Todo</h1>
+            </div>
+            <div class="col-md-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <input type="submit" class="btn btn-dark btn-block" value="Submit"/>
+                </form>
+            </div>
+            <div class="col-md-12 mt-3">
+                <div class="todo-list text-center">
+                    {%for i in todos%}
+                    <div class="todo-content border border-dark p-2 mb-2 d-flex justify-content-between">
+                        <div>
+                            
+                            <span class="lead"></span> {{i.title}}</span>
+                            
+                        </div>
+                        <div>
+                            <a href="{% url 'update' i.id %}" class="btn btn-warning">Update</a>
+                            <a href="{% url 'delete' i.id %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
+
